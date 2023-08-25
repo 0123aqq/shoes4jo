@@ -1,37 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header>
-<img src="<%=context %>/assets/img/logo01.svg" style="width: 100%; padding: 1rem;" onclick="location.href='<%=context %>/'">
-<div class="menu_container">
-<a href="<%=context %>/">메인</a>
-<a href="<%=context %>/naver_keyword_trend">네이버 쇼핑인사이트 상품별 트렌드</a>
-<a href="<%=context %>/google_trend">구글 트렌드 위젯</a>
-</div>
-
-<div class="dropdown" style="
-    text-align: right;
-    margin-right: 2rem;
-    cursor: pointer;
-">
-  <div onclick="javascript:menuToggle()" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<!-- 반응형 메뉴 버튼 -->
+<div class="dropdown" id="responsive-menu" style="display: none; cursor: pointer;" onclick="javascript:showResponsiveMenus();">
     <svg xmlns="http://www.w3.org/2000/svg" width="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" style="height: auto;width: 40px;">
   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
 </svg>
-  </div>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">
-  <p class="menu-member" style="
-  text-align: center;
-  margin: 0;
-  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
-  cursor: default;">반가워요🙌<br><%=sessionID %>님!</p>
-  <hr class="menu-member" style="margin: 0.6rem 0;">
-    <li><a class="dropdown-item menu-visitor" onclick="location.href='<%=context%>/login'">로그인</a></li>
-    <li><a class="dropdown-item menu-visitor" onclick="location.href='<%=context%>/signup'">회원가입</a></li>
-    <li><a class="dropdown-item menu-member" onclick="location.href='<%=context%>/memberInfo'">마이페이지</a></li>
-    <li><a class="dropdown-item menu-member" onclick="location.href='<%=context%>/bookmark_chart'">즐겨찾기</a></li>
-    <li><a class="dropdown-item menu-member" onclick="location.href='<%=context%>/controller/logout'">로그아웃</a></li>
-  </ul>
 </div>
 
+<!-- 헤더 -->
+<img src="<%=context %>/assets/img/logo01.svg" onclick="location.href='<%=context %>/'">
+<div class="menu_container">
+<a href="<%=context %>/main">상품별 트렌드</a>
+<a href="<%=context %>/">분류별 트렌드</a>
+<a href="<%=context %>/">검색어 트렌드</a>
+<a href="<%=context %>/ranking">랭킹</a>
+<a href="<%=context %>/word_cloud">연관 주제</a>
+<a href="<%=context %>/">시장 규모</a>
+<a href="<%=context %>/board/magazine">매거진</a>
+</div>
+
+<!-- 메뉴토글 -->
+<div class="dropdown" style="
+    text-align: right;
+    margin-right: 1.5rem;
+    cursor: pointer;
+">
+  <div onclick="javascript:menuToggle()" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+</svg>
+  </div>
+  <ul class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+  </ul>
+</div>
 </header>
+
+<div class="responsive-menu-wrapper">
+<div><a href="<%=context %>/main">상품별 트렌드</a></div>
+<div><a href="<%=context %>/">분류별 트렌드</a></div>
+<div><a href="<%=context %>/">검색어 트렌드</a></div>
+<div><a href="<%=context %>/ranking">랭킹</a></div>
+<div><a href="<%=context %>/word_cloud">연관 주제</a></div>
+<div><a href="<%=context %>/">시장 규모</a></div>
+<div><a href="<%=context %>/magazine">매거진</a></div>
+</div>
+
+<script>
+function menuToggle() {
+  	if ("<%=sessionID%>" == null || "<%=sessionID%>" == "null") {
+  		document.getElementById("dropdown-menu").innerHTML = (`<%@ include file="menu-visitor.jsp" %>`);
+  	} else if ("<%=sessionID%>" == "admin") {
+  		document.getElementById("dropdown-menu").innerHTML = (`<%@ include file="menu-admin.jsp" %>`);
+  	} else {
+  		document.getElementById("dropdown-menu").innerHTML = (`<%@ include file="menu-member.jsp" %>`);
+  	}
+  }
+  
+function showResponsiveMenus() {
+	let menu = document.getElementsByClassName("responsive-menu-wrapper")[0];
+	if (menu.style.display === "grid"){
+		menu.style.display = "none";
+	} else {
+		menu.style.display = "grid";
+	}
+		console.log(menu.style.display);
+}
+</script>

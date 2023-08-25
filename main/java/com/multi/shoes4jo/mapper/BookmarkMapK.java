@@ -1,16 +1,17 @@
 package com.multi.shoes4jo.mapper;
 
-import com.multi.shoes4jo.vo.BookmarkK;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface BookmarkMapK {
 
 	@Results(id = "bookmarkKResult", value = { @Result(property = "bookmark_id", column = "bookmark_id"),
@@ -20,15 +21,15 @@ public interface BookmarkMapK {
 			@Result(property = "keywords", column = "keywords"), @Result(property = "device", column = "device"),
 			@Result(property = "gender", column = "gender"), @Result(property = "ages", column = "ages"),
 			@Result(property = "add_date", column = "add_date") })
-	@Select("SELECT * FROM shoes_4jo.bookmark_keyword WHERE member_id = #{member_id}")
-	List<BookmarkMapK> findByMemberId(String memberId);
+	@Select("SELECT * FROM 4jo_bookmark_keyword WHERE member_id = #{member_id}")
+	List<BookmarkMapK> findByMemberId(String member_id);
 
-	@Insert("INSERT INTO shoes_4jo.bookmark_keyword (bookmark_id, member_id, start_date, end_date, "
+	@Insert("INSERT INTO 4jo_bookmark_keyword (bookmark_id, member_id, start_date, end_date, "
 			+ "time_unit, keywords, device, gender, device, ages, add_date) "
 			+ "VALUES (#{bookmark_id}, #{member_id}, #{start_date}, #{end_date}, "
 			+ "#{time_unit}, #{keywords}, #{device}, #{gender}, " + "#{device}, #{ages}, #{add_date})")
 	int insertBookmarkK(BookmarkMapK bookmarkK);
 
-	@Delete("DELETE FROM shoes_4jo.bookmark_keyword " + "WHERE bookmark_id = #{bookmark_id}")
+	@Delete("DELETE FROM 4jo_bookmark_keyword " + "WHERE bookmark_id = #{bookmark_id}")
 	int deleteBookmarkK(BookmarkMapK bookmarkK);
 }
