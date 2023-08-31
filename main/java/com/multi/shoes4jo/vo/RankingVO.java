@@ -7,6 +7,8 @@ public class RankingVO {
 	private String date;
 	private String keyword;
 	private String title;
+	private Integer cnt;
+	private Integer ranking;
 
 	public String getDate() {
 		return date;
@@ -32,4 +34,20 @@ public class RankingVO {
 		this.title = title;
 	}
 
+	public Integer getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(Integer cnt) {
+		this.cnt = cnt;
+	}
+	public Integer getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(Integer ranking) {
+		this.ranking = ranking;
+	}
+	
+	
 }
