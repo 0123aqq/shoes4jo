@@ -118,6 +118,7 @@ font-size: 8pt;
 		<h2>인기검색어 크롤링</h2>
 		<div class="form-wrapper">
 			<button class="btn-basic btn-color2" onclick="saveKeywordTrend()">Save</button>
+			<br><a href="<%=context %>/keyword_trend/google">JSON 다운로드</a>
 		</div>
 		</div>
 		
